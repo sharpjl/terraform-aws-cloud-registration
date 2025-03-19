@@ -31,6 +31,11 @@ resource "aws_subnet" "db_subnet_a" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
+
+  lifecycle {
+    ignore_changes = [availability_zone]
+  }
+
   tags = {
     Name                        = "${var.deployment_name}-DB-A"
     (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
@@ -41,6 +46,11 @@ resource "aws_subnet" "db_subnet_b" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
+
+  lifecycle {
+    ignore_changes = [availability_zone]
+  }
+
   tags = {
     Name                        = "${var.deployment_name}-DB-B"
     (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
@@ -75,6 +85,11 @@ resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
+
+  lifecycle {
+    ignore_changes = [availability_zone]
+  }
+
   tags = {
     Name                        = "${var.deployment_name}-Public"
     (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
@@ -85,6 +100,11 @@ resource "aws_subnet" "private_subnet" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.3.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
+
+  lifecycle {
+    ignore_changes = [availability_zone]
+  }
+
   tags = {
     Name                        = "${var.deployment_name}-Private"
     (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
