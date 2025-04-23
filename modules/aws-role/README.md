@@ -10,7 +10,7 @@ This Terraform module allows onboarding multiple aws regions within the same mod
 The module achieves multi-region deployment by defining provider blocks internally. These `aws` provider blocks will use the provided `aws_role` to authenticate. This design choice does create certain limitations to be aware of; for example, the module is not compatible with Terraform's `for_each`, `count`, and `depends_on` arguments. Your workflow for destroying resources defined in this module will be also be impacted see [Running Terraform Destroy](#Running-Terraform-Destroy). You can learn more about the implications by reading [terraform's documentation](https://developer.hashicorp.com/terraform/language/modules/develop/providers#legacy-shared-modules-with-provider-configurations).
 
 > [!IMPORTANT]
-> It is recommeded to use the root module `CrowdStrik/cloud-registration/aws` over this wrapper module.
+> It is recommeded to use the root module `CrowdStrike/cloud-registration/aws` over this wrapper module.
 
 ## Running Terraform Destroy
 
