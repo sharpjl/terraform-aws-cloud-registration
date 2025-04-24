@@ -6,10 +6,6 @@ data "aws_regions" "available" {
   }
 }
 
-locals {
-  target_regions = contains(var.realtime_visibility_regions, "all") ? data.aws_regions.available.names : var.realtime_visibility_regions
-}
-
 module "rtvd_us_east_1" {
   source                      = "../realtime-visibility/"
   count                       = (var.enable_realtime_visibility || var.enable_idp) && contains(data.aws_regions.available.names, "us-east-1") ? 1 : 0

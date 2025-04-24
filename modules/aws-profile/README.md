@@ -195,11 +195,13 @@ module "fcs_child_account_1" {
 
 | Name | Version |
 |------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.45 |
 | <a name="provider_crowdstrike"></a> [crowdstrike](#provider\_crowdstrike) | >= 0.0.19 |
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_regions.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
 | [crowdstrike_cloud_aws_account.target](https://registry.terraform.io/providers/CrowdStrike/crowdstrike/latest/docs/data-sources/cloud_aws_account) | data source |
 ## Inputs
 
