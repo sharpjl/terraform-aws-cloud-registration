@@ -6,6 +6,18 @@ locals {
   enable_dspm                = true
   dspm_regions               = ["us-east-1", "us-east-2"]
   use_existing_cloudtrail    = true
+
+  # customizations
+  resource_prefix        = "cs-"
+  resource_suffix        = "-cspm"
+  custom_role_name       = "${local.resource_prefix}reader-role${local.resource_suffix}"
+  dspm_role_name         = "${local.resource_prefix}dspm-integration${local.resource_suffix}"
+  dspm_scanner_role_name = "${local.resource_prefix}dspm-scanner${local.resource_suffix}"
+  eventbridge_role_name  = "${local.resource_prefix}eventbridge-role${local.resource_suffix}"
+  tags = {
+    DeployedBy = var.me
+    Product    = "FalconCloudSecurity"
+  }
 }
 
 provider "crowdstrike" {
@@ -18,7 +30,8 @@ resource "crowdstrike_cloud_aws_account" "this" {
   account_id = var.account_id
 
   asset_inventory = {
-    enabled = true
+    enabled   = true
+    role_name = local.custom_role_name
   }
 
   realtime_visibility = {
@@ -36,7 +49,8 @@ resource "crowdstrike_cloud_aws_account" "this" {
   }
 
   dspm = {
-    enabled = local.enable_dspm
+    enabled   = local.enable_dspm
+    role_name = local.dspm_role_name
   }
   provider = crowdstrike
 }
@@ -56,12 +70,18 @@ module "fcs_account" {
   enable_dspm                 = local.enable_dspm
   dspm_regions                = local.dspm_regions
 
-  account_type           = crowdstrike_cloud_aws_account.this.account_type
   iam_role_name          = crowdstrike_cloud_aws_account.this.iam_role_name
   external_id            = crowdstrike_cloud_aws_account.this.external_id
   intermediate_role_arn  = crowdstrike_cloud_aws_account.this.intermediate_role_arn
   eventbus_arn           = crowdstrike_cloud_aws_account.this.eventbus_arn
+  eventbridge_role_name  = local.eventbridge_role_name
+  dspm_role_name         = crowdstrike_cloud_aws_account.this.dspm_role_name
   cloudtrail_bucket_name = crowdstrike_cloud_aws_account.this.cloudtrail_bucket_name
+  dspm_scanner_role_name = local.dspm_scanner_role_name
+
+  resource_prefix = local.resource_prefix
+  resource_suffix = local.resource_suffix
+  tags            = local.tags
 
   providers = {
     crowdstrike = crowdstrike

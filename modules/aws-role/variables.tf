@@ -77,8 +77,8 @@ variable "use_existing_cloudtrail" {
 
 variable "realtime_visibility_regions" {
   type        = list(string)
-  default     = []
-  description = "The list of regions to onboard Realtime Visibility monitoring. Use [\"all\"] to onboard all available regions"
+  default     = ["all"]
+  description = "The list of regions where Real-time visibility and detection should be enabled. Use [\"all\"] to onboard all regions"
 }
 
 variable "enable_idp" {

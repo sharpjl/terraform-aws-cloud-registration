@@ -9,6 +9,12 @@ variable "primary_region" {
   type        = string
 }
 
+variable "realtime_visibility_regions" {
+  type        = list(string)
+  default     = ["all"]
+  description = "The list of regions to onboard Realtime Visibility monitoring. Use [\"all\"] to onboard all available regions"
+}
+
 variable "cloudtrail_bucket_name" {
   type        = string
   description = "Name of the S3 bucket for CloudTrail logs"
