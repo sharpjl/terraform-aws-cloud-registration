@@ -74,19 +74,19 @@ resource "crowdstrike_cloud_aws_account" "this" {
 }
 
 module "fcs_account_onboarding" {
-  source                      = "../../"
-  falcon_client_id            = var.falcon_client_id
-  falcon_client_secret        = var.falcon_client_secret
-  account_id                  = var.account_id
-  primary_region              = local.primary_region
-  enable_sensor_management    = local.enable_sensor_management
-  enable_realtime_visibility  = local.enable_realtime_visibility
-  realtime_visibility_regions = local.realtime_visibility_regions
-  enable_idp                  = local.enable_idp
-  use_existing_cloudtrail     = local.use_existing_cloudtrail
-  enable_dspm                 = local.enable_dspm && contains(local.dspm_regions, "us-east-1")
-  dspm_regions                = local.dspm_regions
-  dspm_scanner_role_name      = local.dspm_scanner_role_name
+  source                     = "../../"
+  falcon_client_id           = var.falcon_client_id
+  falcon_client_secret       = var.falcon_client_secret
+  account_id                 = var.account_id
+  primary_region             = local.primary_region
+  enable_sensor_management   = local.enable_sensor_management
+  enable_realtime_visibility = local.enable_realtime_visibility
+  create_rtvd_rules          = contains(local.realtime_visibility_regions, "all") || contains(local.realtime_visibility_regions, "us-east-1")
+  enable_idp                 = local.enable_idp
+  use_existing_cloudtrail    = local.use_existing_cloudtrail
+  enable_dspm                = local.enable_dspm && contains(local.dspm_regions, "us-east-1")
+  dspm_regions               = local.dspm_regions
+  dspm_scanner_role_name     = local.dspm_scanner_role_name
 
   iam_role_name          = crowdstrike_cloud_aws_account.this.iam_role_name
   external_id            = crowdstrike_cloud_aws_account.this.external_id
@@ -107,19 +107,19 @@ module "fcs_account_onboarding" {
 }
 
 module "fcs_account_us_east_2" {
-  source                      = "../.."
-  falcon_client_id            = var.falcon_client_id
-  falcon_client_secret        = var.falcon_client_secret
-  account_id                  = var.account_id
-  primary_region              = local.primary_region
-  enable_sensor_management    = local.enable_sensor_management
-  enable_realtime_visibility  = local.enable_realtime_visibility
-  realtime_visibility_regions = local.realtime_visibility_regions
-  enable_idp                  = local.enable_idp
-  use_existing_cloudtrail     = local.use_existing_cloudtrail
-  enable_dspm                 = local.enable_dspm && contains(local.dspm_regions, "us-east-2")
-  dspm_regions                = local.dspm_regions
-  dspm_scanner_role_name      = local.dspm_scanner_role_name
+  source                     = "../.."
+  falcon_client_id           = var.falcon_client_id
+  falcon_client_secret       = var.falcon_client_secret
+  account_id                 = var.account_id
+  primary_region             = local.primary_region
+  enable_sensor_management   = local.enable_sensor_management
+  enable_realtime_visibility = local.enable_realtime_visibility
+  create_rtvd_rules          = contains(local.realtime_visibility_regions, "all") || contains(local.realtime_visibility_regions, "us-east-2")
+  enable_idp                 = local.enable_idp
+  use_existing_cloudtrail    = local.use_existing_cloudtrail
+  enable_dspm                = local.enable_dspm && contains(local.dspm_regions, "us-east-2")
+  dspm_regions               = local.dspm_regions
+  dspm_scanner_role_name     = local.dspm_scanner_role_name
 
   iam_role_name                   = crowdstrike_cloud_aws_account.this.iam_role_name
   external_id                     = crowdstrike_cloud_aws_account.this.external_id
@@ -142,19 +142,19 @@ module "fcs_account_us_east_2" {
 }
 
 module "fcs_account_us_west_1" {
-  source                      = "../.."
-  falcon_client_id            = var.falcon_client_id
-  falcon_client_secret        = var.falcon_client_secret
-  account_id                  = var.account_id
-  primary_region              = local.primary_region
-  enable_sensor_management    = local.enable_sensor_management
-  enable_realtime_visibility  = local.enable_realtime_visibility
-  realtime_visibility_regions = local.realtime_visibility_regions
-  enable_idp                  = local.enable_idp
-  use_existing_cloudtrail     = local.use_existing_cloudtrail
-  enable_dspm                 = local.enable_dspm && contains(local.dspm_regions, "us-west-1")
-  dspm_regions                = local.dspm_regions
-  dspm_scanner_role_name      = local.dspm_scanner_role_name
+  source                     = "../.."
+  falcon_client_id           = var.falcon_client_id
+  falcon_client_secret       = var.falcon_client_secret
+  account_id                 = var.account_id
+  primary_region             = local.primary_region
+  enable_sensor_management   = local.enable_sensor_management
+  enable_realtime_visibility = local.enable_realtime_visibility
+  create_rtvd_rules          = contains(local.realtime_visibility_regions, "all") || contains(local.realtime_visibility_regions, "us-west-1")
+  enable_idp                 = local.enable_idp
+  use_existing_cloudtrail    = local.use_existing_cloudtrail
+  enable_dspm                = local.enable_dspm && contains(local.dspm_regions, "us-west-1")
+  dspm_regions               = local.dspm_regions
+  dspm_scanner_role_name     = local.dspm_scanner_role_name
 
   iam_role_name                   = crowdstrike_cloud_aws_account.this.iam_role_name
   external_id                     = crowdstrike_cloud_aws_account.this.external_id
@@ -177,19 +177,19 @@ module "fcs_account_us_west_1" {
 }
 
 module "fcs_account_us_west_2" {
-  source                      = "../.."
-  falcon_client_id            = var.falcon_client_id
-  falcon_client_secret        = var.falcon_client_secret
-  account_id                  = var.account_id
-  primary_region              = local.primary_region
-  enable_sensor_management    = local.enable_sensor_management
-  enable_realtime_visibility  = local.enable_realtime_visibility
-  realtime_visibility_regions = local.realtime_visibility_regions
-  enable_idp                  = local.enable_idp
-  use_existing_cloudtrail     = local.use_existing_cloudtrail
-  enable_dspm                 = local.enable_dspm && contains(local.dspm_regions, "us-west-2")
-  dspm_regions                = local.dspm_regions
-  dspm_scanner_role_name      = local.dspm_scanner_role_name
+  source                     = "../.."
+  falcon_client_id           = var.falcon_client_id
+  falcon_client_secret       = var.falcon_client_secret
+  account_id                 = var.account_id
+  primary_region             = local.primary_region
+  enable_sensor_management   = local.enable_sensor_management
+  enable_realtime_visibility = local.enable_realtime_visibility
+  create_rtvd_rules          = contains(local.realtime_visibility_regions, "all") || contains(local.realtime_visibility_regions, "us-west-2")
+  enable_idp                 = local.enable_idp
+  use_existing_cloudtrail    = local.use_existing_cloudtrail
+  enable_dspm                = local.enable_dspm && contains(local.dspm_regions, "us-west-2")
+  dspm_regions               = local.dspm_regions
+  dspm_scanner_role_name     = local.dspm_scanner_role_name
 
   iam_role_name                   = crowdstrike_cloud_aws_account.this.iam_role_name
   external_id                     = crowdstrike_cloud_aws_account.this.external_id

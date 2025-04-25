@@ -67,22 +67,22 @@ module "sensor_management" {
 }
 
 module "realtime_visibility" {
-  count                       = (var.enable_realtime_visibility || var.enable_idp) ? 1 : 0
-  source                      = "./modules/realtime-visibility/"
-  use_existing_cloudtrail     = var.use_existing_cloudtrail
-  cloudtrail_bucket_name      = local.cloudtrail_bucket_name
-  eventbridge_role_name       = var.eventbridge_role_name
-  eventbus_arn                = local.eventbus_arn
-  is_organization_trail       = length(var.organization_id) > 0
-  is_gov_commercial           = var.is_gov && var.account_type == "commercial"
-  is_primary_region           = local.is_primary_region
-  realtime_visibility_regions = var.realtime_visibility_regions
-  primary_region              = var.primary_region
-  falcon_client_id            = var.falcon_client_id
-  falcon_client_secret        = var.falcon_client_secret
-  resource_prefix             = var.resource_prefix
-  resource_suffix             = var.resource_suffix
-  tags                        = var.tags
+  count                   = (var.enable_realtime_visibility || var.enable_idp) ? 1 : 0
+  source                  = "./modules/realtime-visibility/"
+  use_existing_cloudtrail = var.use_existing_cloudtrail
+  cloudtrail_bucket_name  = local.cloudtrail_bucket_name
+  eventbridge_role_name   = var.eventbridge_role_name
+  eventbus_arn            = local.eventbus_arn
+  is_organization_trail   = length(var.organization_id) > 0
+  is_gov_commercial       = var.is_gov && var.account_type == "commercial"
+  is_primary_region       = local.is_primary_region
+  create_rules            = var.create_rtvd_rules
+  primary_region          = var.primary_region
+  falcon_client_id        = var.falcon_client_id
+  falcon_client_secret    = var.falcon_client_secret
+  resource_prefix         = var.resource_prefix
+  resource_suffix         = var.resource_suffix
+  tags                    = var.tags
 
   depends_on = [
     data.crowdstrike_cloud_aws_account.target,

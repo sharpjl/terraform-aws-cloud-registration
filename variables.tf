@@ -70,10 +70,10 @@ variable "use_existing_cloudtrail" {
   description = "Set to true if you already have a cloudtrail"
 }
 
-variable "realtime_visibility_regions" {
-  type        = list(string)
-  default     = ["all"]
-  description = "The list of regions where Real-time visibility and detection should be enabled. Use [\"all\"] to onboard all regions"
+variable "create_rtvd_rules" {
+  type        = bool
+  default     = true
+  description = "Set to false if you don't want to enable monitoring in this region"
 }
 
 variable "eventbridge_role_name" {

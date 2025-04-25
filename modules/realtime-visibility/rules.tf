@@ -106,13 +106,13 @@ locals {
 }
 
 resource "aws_cloudwatch_event_rule" "rw" {
-  count         = contains(var.realtime_visibility_regions, "all") || contains(var.realtime_visibility_regions, local.aws_region) ? 1 : 0
+  count         = var.create_rules ? 1 : 0
   name          = local.rule_name
   event_pattern = local.event_pattern
 }
 
 resource "aws_cloudwatch_event_target" "rw" {
-  count     = contains(var.realtime_visibility_regions, "all") || contains(var.realtime_visibility_regions, local.aws_region) ? 1 : 0
+  count     = var.create_rules ? 1 : 0
   target_id = local.target_id
   arn       = local.eventbus_arn
   rule      = aws_cloudwatch_event_rule.rw[0].name
@@ -125,13 +125,13 @@ resource "aws_cloudwatch_event_target" "rw" {
 
 
 resource "aws_cloudwatch_event_rule" "ro" {
-  count         = contains(var.realtime_visibility_regions, "all") || contains(var.realtime_visibility_regions, local.aws_region) ? 1 : 0
+  count         = var.create_rules ? 1 : 0
   name          = local.ro_rule_name
   event_pattern = local.ro_event_pattern
 }
 
 resource "aws_cloudwatch_event_target" "ro" {
-  count     = contains(var.realtime_visibility_regions, "all") || contains(var.realtime_visibility_regions, local.aws_region) ? 1 : 0
+  count     = var.create_rules ? 1 : 0
   target_id = local.target_id
   arn       = local.eventbus_arn
   rule      = aws_cloudwatch_event_rule.ro[0].name

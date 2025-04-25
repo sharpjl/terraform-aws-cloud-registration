@@ -9,10 +9,10 @@ variable "primary_region" {
   type        = string
 }
 
-variable "realtime_visibility_regions" {
-  type        = list(string)
-  default     = ["all"]
-  description = "The list of regions to onboard Realtime Visibility monitoring. Use [\"all\"] to onboard all available regions"
+variable "create_rules" {
+  type        = bool
+  default     = true
+  description = "Set to false if you don't want to enable monitoring in this region"
 }
 
 variable "cloudtrail_bucket_name" {

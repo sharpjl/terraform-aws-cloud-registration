@@ -79,7 +79,6 @@ module "fcs_account" {
   cloudtrail_bucket_name = crowdstrike_cloud_aws_account.this.cloudtrail_bucket_name
   dspm_scanner_role_name = local.dspm_scanner_role_name
 
-
   resource_prefix = local.resource_prefix
   resource_suffix = local.resource_suffix
   tags            = local.tags
