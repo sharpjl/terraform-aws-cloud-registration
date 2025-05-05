@@ -235,6 +235,7 @@ module "fcs_account_us_east_2" {
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | The AWS 12 digit account ID | `string` | `""` | no |
 | <a name="input_account_type"></a> [account\_type](#input\_account\_type) | Account type can be either 'commercial' or 'gov' | `string` | `"commercial"` | no |
 | <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | Name of the S3 bucket for CloudTrail logs | `string` | `""` | no |
+| <a name="input_create_rtvd_rules"></a> [create\_rtvd\_rules](#input\_create\_rtvd\_rules) | Set to false if you don't want to enable monitoring in this region | `bool` | `true` | no |
 | <a name="input_dspm_integration_role_unique_id"></a> [dspm\_integration\_role\_unique\_id](#input\_dspm\_integration\_role\_unique\_id) | The unique ID of the DSPM integration role | `string` | `""` | no |
 | <a name="input_dspm_regions"></a> [dspm\_regions](#input\_dspm\_regions) | The regions in which DSPM scanning environments will be created | `list(string)` | <pre>[<br/>  "us-east-1"<br/>]</pre> | no |
 | <a name="input_dspm_role_name"></a> [dspm\_role\_name](#input\_dspm\_role\_name) | The unique name of the IAM role that DSPM will be assuming | `string` | `"CrowdStrikeDSPMIntegrationRole"` | no |

@@ -70,6 +70,12 @@ variable "use_existing_cloudtrail" {
   description = "Set to true if you already have a cloudtrail"
 }
 
+variable "create_rtvd_rules" {
+  type        = bool
+  default     = true
+  description = "Set to false if you don't want to enable monitoring in this region"
+}
+
 variable "eventbridge_role_name" {
   type        = string
   default     = "CrowdStrikeCSPMEventBridge"

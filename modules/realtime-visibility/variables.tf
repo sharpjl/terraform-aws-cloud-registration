@@ -9,6 +9,12 @@ variable "primary_region" {
   type        = string
 }
 
+variable "create_rules" {
+  type        = bool
+  default     = true
+  description = "Set to false if you don't want to enable monitoring in this region"
+}
+
 variable "cloudtrail_bucket_name" {
   type        = string
   description = "Name of the S3 bucket for CloudTrail logs"

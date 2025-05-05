@@ -24,3 +24,9 @@ variable "aws_profile" {
   type        = string
   description = "The AWS profile to be used for this registration"
 }
+
+variable "me" {
+  type        = string
+  default     = "unspecified"
+  description = "The user running terraform"
+}

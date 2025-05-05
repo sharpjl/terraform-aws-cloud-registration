@@ -76,6 +76,7 @@ module "realtime_visibility" {
   is_organization_trail   = length(var.organization_id) > 0
   is_gov_commercial       = var.is_gov && var.account_type == "commercial"
   is_primary_region       = local.is_primary_region
+  create_rules            = var.create_rtvd_rules
   primary_region          = var.primary_region
   falcon_client_id        = var.falcon_client_id
   falcon_client_secret    = var.falcon_client_secret

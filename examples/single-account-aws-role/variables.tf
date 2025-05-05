@@ -24,3 +24,9 @@ variable "aws_role_name" {
   type        = string
   description = "The AWS role name used for assuming into this account"
 }
+
+variable "me" {
+  type        = string
+  default     = "unspecified"
+  description = "The user running terraform"
+}
