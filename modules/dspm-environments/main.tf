@@ -210,6 +210,62 @@ resource "aws_route_table_association" "private_subnet_route_table_association" 
   route_table_id = aws_route_table.private_route_table.id
 }
 
+resource "aws_network_acl" "network_acl" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name                = "${var.deployment_name}-NACL"
+    (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
+  }
+}
+
+resource "aws_network_acl_rule" "inbound_a" {
+  network_acl_id = aws_network_acl.network_acl.id
+  rule_number    = 100
+  protocol       = "-1"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = "0.0.0.0/1"
+}
+
+resource "aws_network_acl_rule" "inbound_b" {
+  network_acl_id = aws_network_acl.network_acl.id
+  rule_number    = 110
+  protocol       = "-1"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = "128.0.0.0/1"
+}
+
+resource "aws_network_acl_rule" "outbound" {
+  network_acl_id = aws_network_acl.network_acl.id
+  rule_number    = 100
+  protocol       = "-1"
+  rule_action    = "allow"
+  egress         = true
+  cidr_block     = "0.0.0.0/0"
+}
+
+resource "aws_network_acl_association" "public_subnet_nacl_association" {
+  subnet_id      = aws_subnet.public_subnet.id
+  network_acl_id = aws_network_acl.network_acl.id
+}
+
+resource "aws_network_acl_association" "private_subnet_nacl_association" {
+  subnet_id      = aws_subnet.private_subnet.id
+  network_acl_id = aws_network_acl.network_acl.id
+}
+
+resource "aws_network_acl_association" "db_subnet_a_nacl_association" {
+  subnet_id      = aws_subnet.db_subnet_a.id
+  network_acl_id = aws_network_acl.network_acl.id
+}
+
+resource "aws_network_acl_association" "db_subnet_b_nacl_association" {
+  subnet_id      = aws_subnet.db_subnet_b.id
+  network_acl_id = aws_network_acl.network_acl.id
+}
+
 resource "aws_security_group" "ec2_security_group" {
   #checkov:skip=CKV_AWS_382:Data scanner must be allowed to access undetermined ports to support scanning new services
   name        = "EC2SecurityGroup"

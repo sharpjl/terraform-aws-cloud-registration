@@ -58,6 +58,7 @@ data "aws_iam_policy_document" "crowdstrike_cloud_scan_supplemental_data" {
       "redshift:View*",
       "redshift-serverless:List*",
       "ec2:GetConsoleOutput",
+      "ec2:Describe*",
       "sts:DecodeAuthorizationMessage",
       "elb:DescribeLoadBalancers",
       "cloudwatch:GetMetricData",
