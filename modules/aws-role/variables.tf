@@ -183,3 +183,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "create_nat_gateway" {
+  description = "Set to true to create NAT Gateway for private scanner, false for public scanner"
+  type        = bool
+  default     = true
+}

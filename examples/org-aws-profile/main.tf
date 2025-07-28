@@ -6,6 +6,7 @@ locals {
   enable_dspm                = true
   dspm_regions               = ["us-east-1", "us-east-2"]
   use_existing_cloudtrail    = true
+  create_nat_gateway         = var.create_nat_gateway
 }
 
 provider "crowdstrike" {
@@ -62,6 +63,7 @@ module "fcs_management_account" {
   intermediate_role_arn  = crowdstrike_cloud_aws_account.this.intermediate_role_arn
   eventbus_arn           = crowdstrike_cloud_aws_account.this.eventbus_arn
   cloudtrail_bucket_name = crowdstrike_cloud_aws_account.this.cloudtrail_bucket_name
+  create_nat_gateway     = local.create_nat_gateway
 }
 
 # for each child account you want to onboard
@@ -87,4 +89,5 @@ module "fcs_child_account_1" {
   intermediate_role_arn  = crowdstrike_cloud_aws_account.this.intermediate_role_arn
   eventbus_arn           = crowdstrike_cloud_aws_account.this.eventbus_arn
   cloudtrail_bucket_name = "" # not needed for child accounts
+  create_nat_gateway     = local.create_nat_gateway
 }

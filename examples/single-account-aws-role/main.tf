@@ -6,6 +6,7 @@ locals {
   enable_dspm                = true
   dspm_regions               = ["us-east-1", "us-east-2"]
   use_existing_cloudtrail    = true
+  create_nat_gateway         = var.create_nat_gateway
 
   # customizations
   resource_prefix        = "cs-"
@@ -82,6 +83,7 @@ module "fcs_account" {
   resource_prefix = local.resource_prefix
   resource_suffix = local.resource_suffix
   tags            = local.tags
+  create_nat_gateway = local.create_nat_gateway
 
   providers = {
     crowdstrike = crowdstrike

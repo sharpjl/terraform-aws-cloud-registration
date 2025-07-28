@@ -24,3 +24,9 @@ variable "organization_id" {
   type        = string
   description = "The AWS Organization ID. Leave blank when onboarding single account"
 }
+
+variable "create_nat_gateway" {
+  description = "Set to true to create NAT Gateway for private scanner, false for public scanner"
+  type        = bool
+  default     = true
+}

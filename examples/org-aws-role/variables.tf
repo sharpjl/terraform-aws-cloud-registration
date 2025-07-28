@@ -29,3 +29,9 @@ variable "aws_role_name" {
   type        = string
   description = "The AWS role name used for assuming into this account"
 }
+
+variable "create_nat_gateway" {
+  description = "Set to true to create NAT Gateway for private scanner, false for public scanner"
+  type        = bool
+  default     = true
+}

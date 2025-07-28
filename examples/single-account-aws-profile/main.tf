@@ -6,6 +6,7 @@ locals {
   enable_dspm                = false
   dspm_regions               = ["us-west-1"]
   use_existing_cloudtrail    = true
+  create_nat_gateway         = var.create_nat_gateway
 
   # customizations
   resource_prefix        = "cs-"
@@ -78,6 +79,7 @@ module "fcs_account" {
   dspm_role_name         = crowdstrike_cloud_aws_account.this.dspm_role_name
   cloudtrail_bucket_name = crowdstrike_cloud_aws_account.this.cloudtrail_bucket_name
   dspm_scanner_role_name = local.dspm_scanner_role_name
+  create_nat_gateway     = local.create_nat_gateway
 
   resource_prefix = local.resource_prefix
   resource_suffix = local.resource_suffix

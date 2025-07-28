@@ -21,6 +21,12 @@ variable "scanner_role_unique_id" {
   type        = string
 }
 
+variable "create_nat_gateway" {
+  description = "Set to true to create NAT Gateway for private scanner, false for public scanner"
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources that support tagging"
   type        = map(string)
