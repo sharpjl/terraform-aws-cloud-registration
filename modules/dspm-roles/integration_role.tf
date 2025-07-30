@@ -135,6 +135,26 @@ data "aws_iam_policy_document" "crowdstrike_run_data_scanner_restricted_data" {
     }
   }
 
+  statement {
+    sid    = "AllowRunInstances"
+    effect = "Allow"
+
+    actions = [
+      "ec2:RunInstances"
+    ]
+
+    resources = [
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:security-group/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*"
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "ec2:ResourceTag/${local.crowdstrike_tag_key}"
+      values   = [local.crowdstrike_tag_value]
+    }
+  }
+
   # Grants permission to create below resources with only Crowdstrike tag
   # On CrowdStrike EC2 instance
   statement {

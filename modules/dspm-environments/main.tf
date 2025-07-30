@@ -386,30 +386,3 @@ resource "aws_security_group" "db_security_group" {
     }
   )
 }
-
-resource "aws_iam_role_policy" "vpc_policy" {
-  name = "RunDataScanner-${local.aws_region}-${aws_vpc.vpc.id}"
-  role = var.dspm_role_name
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "AllowRunInstances"
-        Effect = "Allow"
-        Action = [
-          "ec2:RunInstances"
-        ]
-        Resource = [
-          "arn:aws:ec2:*:${local.account_id}:security-group/*",
-          "arn:aws:ec2:*:${local.account_id}:subnet/*"
-        ]
-        Condition = {
-          StringEquals = {
-            "ec2:Vpc" = "arn:aws:ec2:${local.aws_region}:${local.account_id}:vpc/${aws_vpc.vpc.id}"
-          }
-        }
-      }
-    ]
-  })
-}

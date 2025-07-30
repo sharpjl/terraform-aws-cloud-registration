@@ -30,3 +30,9 @@ variable "me" {
   default     = "unspecified"
   description = "The user running terraform"
 }
+
+variable "vpc_cidr_block" {
+  description = "VPC CIDR block"
+  type        = string
+  default     = "172.16.0.0/20"
+}
