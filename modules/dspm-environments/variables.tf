@@ -21,8 +21,8 @@ variable "scanner_role_unique_id" {
   type        = string
 }
 
-variable "create_nat_gateway" {
-  description = "Set to true to create NAT Gateway for private scanner, false for public scanner"
+variable "dspm_create_nat_gateway" {
+  description = "Set to true to create a NAT Gateway for DSPM scanning environments"
   type        = bool
   default     = true
 }
