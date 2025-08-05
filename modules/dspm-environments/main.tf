@@ -101,7 +101,7 @@ resource "aws_redshift_subnet_group" "redshift_subnet_group" {
 
 resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 3)
+  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 2)
   availability_zone = data.aws_availability_zones.available.names[0]
 
   lifecycle {
@@ -119,7 +119,7 @@ resource "aws_subnet" "public_subnet" {
 
 resource "aws_subnet" "private_subnet" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 4)
+  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 3)
   availability_zone = data.aws_availability_zones.available.names[0]
 
   lifecycle {
@@ -213,10 +213,13 @@ resource "aws_route_table_association" "private_subnet_route_table_association" 
 resource "aws_network_acl" "network_acl" {
   vpc_id = aws_vpc.vpc.id
 
-  tags = {
-    Name                = "${var.deployment_name}-NACL"
-    (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
-  }
+  tags = merge(
+    var.tags,
+    {
+      Name                        = "${var.deployment_name}-NACL"
+      (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
+    }
+  )
 }
 
 resource "aws_network_acl_rule" "inbound_a" {

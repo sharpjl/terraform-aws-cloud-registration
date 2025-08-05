@@ -29,5 +29,5 @@ variable "me" {
 variable "vpc_cidr_block" {
   description = "VPC CIDR block"
   type        = string
-  default     = "172.16.0.0/20"
+  default     = "10.0.0.0/16"
 }
