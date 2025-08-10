@@ -40,3 +40,6 @@ terraform.rc
 # Development files
 Makefile
 .bin/
+
+# Ignore lock.hcl files created from updating documentation
+*.terraform.lock.hcl
