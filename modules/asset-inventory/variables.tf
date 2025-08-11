@@ -4,8 +4,8 @@ variable "external_id" {
 }
 
 variable "use_existing_iam_reader_role" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Set to true if you intend to use an existing IAM role for asset inventory"
 }
 

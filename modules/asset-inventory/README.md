@@ -70,6 +70,7 @@ module "asset_inventory" {
 | <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | The name of the policy used to set the permissions boundary for IAM roles | `string` | `""` | no |
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name) | Name of the asset inventory reader IAM role | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources that support tagging | `map(string)` | `{}` | no |
+| <a name="input_use_existing_iam_reader_role"></a> [use\_existing\_iam\_reader\_role](#input\_use\_existing\_iam\_reader\_role) | Set to true if you intend to use an existing IAM role for asset inventory | `bool` | `false` | no |
 ## Outputs
 
 | Name | Description |
