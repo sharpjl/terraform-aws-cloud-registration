@@ -5,7 +5,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_vpc" "vpc" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block           = var.vpc_cidr_block
   enable_dns_support   = true
   enable_dns_hostnames = true
 
@@ -35,7 +35,7 @@ resource "aws_internet_gateway" "internet_gateway" {
 
 resource "aws_subnet" "db_subnet_a" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.0.0/24"
+  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 0)
   availability_zone = data.aws_availability_zones.available.names[0]
 
   lifecycle {
@@ -53,7 +53,7 @@ resource "aws_subnet" "db_subnet_a" {
 
 resource "aws_subnet" "db_subnet_b" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.1.0/24"
+  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 1)
   availability_zone = data.aws_availability_zones.available.names[1]
 
   lifecycle {
@@ -102,7 +102,7 @@ resource "aws_redshift_subnet_group" "redshift_subnet_group" {
 resource "aws_subnet" "public_subnet" {
   count             = var.dspm_create_nat_gateway ? 1 : 0
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.2.0/24"
+  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 2)
   availability_zone = data.aws_availability_zones.available.names[0]
 
   lifecycle {
@@ -120,7 +120,7 @@ resource "aws_subnet" "public_subnet" {
 
 resource "aws_subnet" "private_subnet" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "10.0.3.0/24"
+  cidr_block        = cidrsubnet("${var.vpc_cidr_block}", 8, 3)
   availability_zone = data.aws_availability_zones.available.names[0]
 
   lifecycle {
@@ -213,6 +213,65 @@ resource "aws_route_table_association" "public_subnet_route_table_association" {
 resource "aws_route_table_association" "private_subnet_route_table_association" {
   subnet_id      = aws_subnet.private_subnet.id
   route_table_id = aws_route_table.private_route_table.id
+}
+
+resource "aws_network_acl" "network_acl" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = merge(
+    var.tags,
+    {
+      Name                        = "${var.deployment_name}-NACL"
+      (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
+    }
+  )
+}
+
+resource "aws_network_acl_rule" "inbound_a" {
+  network_acl_id = aws_network_acl.network_acl.id
+  rule_number    = 100
+  protocol       = "-1"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = "0.0.0.0/1"
+}
+
+resource "aws_network_acl_rule" "inbound_b" {
+  network_acl_id = aws_network_acl.network_acl.id
+  rule_number    = 110
+  protocol       = "-1"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = "128.0.0.0/1"
+}
+
+resource "aws_network_acl_rule" "outbound" {
+  network_acl_id = aws_network_acl.network_acl.id
+  rule_number    = 100
+  protocol       = "-1"
+  rule_action    = "allow"
+  egress         = true
+  cidr_block     = "0.0.0.0/0"
+}
+
+resource "aws_network_acl_association" "public_subnet_nacl_association" {
+  subnet_id      = aws_subnet.public_subnet.id
+  network_acl_id = aws_network_acl.network_acl.id
+}
+
+resource "aws_network_acl_association" "private_subnet_nacl_association" {
+  subnet_id      = aws_subnet.private_subnet.id
+  network_acl_id = aws_network_acl.network_acl.id
+}
+
+resource "aws_network_acl_association" "db_subnet_a_nacl_association" {
+  subnet_id      = aws_subnet.db_subnet_a.id
+  network_acl_id = aws_network_acl.network_acl.id
+}
+
+resource "aws_network_acl_association" "db_subnet_b_nacl_association" {
+  subnet_id      = aws_subnet.db_subnet_b.id
+  network_acl_id = aws_network_acl.network_acl.id
 }
 
 resource "aws_security_group" "ec2_security_group" {
@@ -336,29 +395,79 @@ resource "aws_security_group" "db_security_group" {
   )
 }
 
-resource "aws_iam_role_policy" "vpc_policy" {
-  name = "RunDataScanner-${local.aws_region}-${aws_vpc.vpc.id}"
-  role = var.dspm_role_name
+resource "aws_vpc_endpoint" "s3_endpoint" {
+  vpc_id            = aws_vpc.vpc.id
+  service_name      = "com.amazonaws.${local.aws_region}.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids   = [aws_route_table.private_route_table.id]
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "AllowRunInstances"
-        Effect = "Allow"
-        Action = [
-          "ec2:RunInstances"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = [
+          "s3:Get*",
+          "s3:List*"
         ]
-        Resource = [
-          "arn:aws:ec2:*:${local.account_id}:security-group/*",
-          "arn:aws:ec2:*:${local.account_id}:subnet/*"
-        ]
+        Resource  = "*"
         Condition = {
           StringEquals = {
-            "ec2:Vpc" = "arn:aws:ec2:${local.aws_region}:${local.account_id}:vpc/${aws_vpc.vpc.id}"
+            "aws:SourceVpc" = aws_vpc.vpc.id
           }
         }
       }
     ]
   })
+
+  tags = merge(
+    var.tags,
+    {
+      Name                        = "${var.deployment_name}-S3-Endpoint"
+      (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
+      (local.logical_tag_key)     = "S3Endpoint"
+    }
+  )
+}
+
+resource "aws_vpc_endpoint" "dynamodb_endpoint" {
+  vpc_id            = aws_vpc.vpc.id
+  service_name      = "com.amazonaws.${local.aws_region}.dynamodb"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids   = [aws_route_table.private_route_table.id]
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = [
+          "dynamodb:BatchGet*",
+          "dynamodb:Describe*",
+          "dynamodb:List*",
+          "dynamodb:Get*",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:PartiQLSelect"
+        ]
+        Resource  = "*"
+        Condition = {
+          StringEquals = {
+            "aws:SourceVpc" = aws_vpc.vpc.id
+          }
+        }
+      }
+    ]
+  })
+
+  tags = merge(
+    var.tags,
+    {
+      Name                        = "${var.deployment_name}-DynamoDB-Endpoint"
+      (local.crowdstrike_tag_key) = local.crowdstrike_tag_value
+      (local.logical_tag_key)     = "DynamoDBEndpoint"
+    }
+  )
 }

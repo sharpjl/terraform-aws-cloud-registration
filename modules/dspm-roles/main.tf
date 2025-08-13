@@ -39,12 +39,6 @@ resource "aws_iam_role_policy_attachment" "cloud_watch_logs_read_only_access" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsReadOnlyAccess"
 }
 
-resource "aws_iam_role_policy_attachment" "amazon_ssm_managed_instance_core" {
-  role       = aws_iam_role.crowdstrike_aws_dspm_scanner_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-}
-
-
 
 resource "aws_iam_role_policy" "crowdstrike_logs_reader" {
   #checkov:skip=CKV_AWS_355:DSPM data scanner requires read access to logs for all scannable assets

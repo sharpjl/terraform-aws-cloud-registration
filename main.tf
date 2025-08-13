@@ -115,6 +115,7 @@ module "dspm_environments" {
   scanner_role_unique_id     = local.is_primary_region ? module.dspm_roles[0].scanner_role_unique_id : var.dspm_scanner_role_unique_id
   dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   tags                       = var.tags
+  vpc_cidr_block             = var.vpc_cidr_block
 
   depends_on = [module.dspm_roles]
 
