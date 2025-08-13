@@ -4,6 +4,7 @@ module "dspm_environment_us_east_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -18,6 +19,7 @@ module "dspm_environment_us_east_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -32,6 +34,7 @@ module "dspm_environment_us_west_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -46,6 +49,7 @@ module "dspm_environment_us_west_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -60,6 +64,7 @@ module "dspm_environment_af_south_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -74,6 +79,7 @@ module "dspm_environment_ap_east_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -88,6 +94,7 @@ module "dspm_environment_ap_south_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -102,6 +109,7 @@ module "dspm_environment_ap_south_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -116,6 +124,7 @@ module "dspm_environment_ap_northeast_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -130,6 +139,7 @@ module "dspm_environment_ap_northeast_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -144,6 +154,7 @@ module "dspm_environment_ap_northeast_3" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -158,6 +169,7 @@ module "dspm_environment_ap_southeast_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -172,6 +184,7 @@ module "dspm_environment_ap_southeast_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -186,6 +199,7 @@ module "dspm_environment_ap_southeast_3" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -200,6 +214,7 @@ module "dspm_environment_ap_southeast_4" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -214,6 +229,7 @@ module "dspm_environment_ca_central_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -228,6 +244,7 @@ module "dspm_environment_eu_central_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -242,6 +259,7 @@ module "dspm_environment_eu_central_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -256,6 +274,7 @@ module "dspm_environment_eu_north_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -270,6 +289,7 @@ module "dspm_environment_eu_south_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -284,6 +304,7 @@ module "dspm_environment_eu_south_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -298,6 +319,7 @@ module "dspm_environment_eu_west_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -312,6 +334,7 @@ module "dspm_environment_eu_west_2" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -326,6 +349,7 @@ module "dspm_environment_eu_west_3" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -340,6 +364,7 @@ module "dspm_environment_me_central_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -354,6 +379,7 @@ module "dspm_environment_me_south_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {
@@ -368,6 +394,7 @@ module "dspm_environment_sa_east_1" {
   dspm_role_name             = var.dspm_role_name
   integration_role_unique_id = module.dspm_roles[0].integration_role_unique_id
   scanner_role_unique_id     = module.dspm_roles[0].scanner_role_unique_id
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
   vpc_cidr_block             = var.vpc_cidr_block
   tags                       = var.tags
   providers = {

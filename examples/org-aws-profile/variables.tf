@@ -25,6 +25,12 @@ variable "organization_id" {
   description = "The AWS Organization ID. Leave blank when onboarding single account"
 }
 
+variable "dspm_create_nat_gateway" {
+  description = "Set to true to create a NAT Gateway for DSPM scanning environments"
+  type        = bool
+  default     = true
+}
+
 variable "vpc_cidr_block" {
   description = "VPC CIDR block"
   type        = string

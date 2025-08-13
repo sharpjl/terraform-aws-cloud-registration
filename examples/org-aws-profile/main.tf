@@ -6,6 +6,7 @@ locals {
   enable_dspm                = true
   dspm_regions               = ["us-east-1", "us-east-2"]
   use_existing_cloudtrail    = true
+  dspm_create_nat_gateway    = var.dspm_create_nat_gateway
 }
 
 provider "crowdstrike" {
@@ -58,11 +59,12 @@ module "fcs_management_account" {
   dspm_regions                = local.dspm_regions
   vpc_cidr_block              = var.vpc_cidr_block
 
-  iam_role_name          = crowdstrike_cloud_aws_account.this.iam_role_name
-  external_id            = crowdstrike_cloud_aws_account.this.external_id
-  intermediate_role_arn  = crowdstrike_cloud_aws_account.this.intermediate_role_arn
-  eventbus_arn           = crowdstrike_cloud_aws_account.this.eventbus_arn
-  cloudtrail_bucket_name = crowdstrike_cloud_aws_account.this.cloudtrail_bucket_name
+  iam_role_name           = crowdstrike_cloud_aws_account.this.iam_role_name
+  external_id             = crowdstrike_cloud_aws_account.this.external_id
+  intermediate_role_arn   = crowdstrike_cloud_aws_account.this.intermediate_role_arn
+  eventbus_arn            = crowdstrike_cloud_aws_account.this.eventbus_arn
+  cloudtrail_bucket_name  = crowdstrike_cloud_aws_account.this.cloudtrail_bucket_name
+  dspm_create_nat_gateway = local.dspm_create_nat_gateway
 }
 
 # for each child account you want to onboard
@@ -84,9 +86,10 @@ module "fcs_child_account_1" {
   dspm_regions                = local.dspm_regions
   vpc_cidr_block              = var.vpc_cidr_block
 
-  iam_role_name          = crowdstrike_cloud_aws_account.this.iam_role_name
-  external_id            = crowdstrike_cloud_aws_account.this.external_id
-  intermediate_role_arn  = crowdstrike_cloud_aws_account.this.intermediate_role_arn
-  eventbus_arn           = crowdstrike_cloud_aws_account.this.eventbus_arn
-  cloudtrail_bucket_name = "" # not needed for child accounts
+  iam_role_name           = crowdstrike_cloud_aws_account.this.iam_role_name
+  external_id             = crowdstrike_cloud_aws_account.this.external_id
+  intermediate_role_arn   = crowdstrike_cloud_aws_account.this.intermediate_role_arn
+  eventbus_arn            = crowdstrike_cloud_aws_account.this.eventbus_arn
+  cloudtrail_bucket_name  = "" # not needed for child accounts
+  dspm_create_nat_gateway = local.dspm_create_nat_gateway
 }
