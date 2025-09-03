@@ -6,7 +6,7 @@ data "crowdstrike_cloud_aws_account" "target" {
 }
 
 locals {
-  aws_region        = data.aws_region.current.name
+  aws_region        = data.aws_region.current.region
   is_primary_region = local.aws_region == var.primary_region
 
   # if we target by account_id, it will be the only account returned
@@ -104,6 +104,10 @@ module "dspm_roles" {
   intermediate_role_arn  = local.intermediate_role_arn
   external_id            = local.external_id
   dspm_regions           = var.dspm_regions
+  dspm_s3_access         = var.dspm_s3_access
+  dspm_dynamodb_access   = var.dspm_dynamodb_access
+  dspm_rds_access        = var.dspm_rds_access
+  dspm_redshift_access   = var.dspm_redshift_access
   tags                   = var.tags
 }
 

@@ -32,6 +32,30 @@ variable "dspm_create_nat_gateway" {
   default     = true
 }
 
+variable "dspm_s3_access" {
+  description = "Apply permissions for S3 bucket scanning"
+  type        = bool
+  default     = true
+}
+
+variable "dspm_dynamodb_access" {
+  description = "Apply permissions for DynamoDB table scanning"
+  type        = bool
+  default     = true
+}
+
+variable "dspm_rds_access" {
+  description = "Apply permissions for RDS instance scanning"
+  type        = bool
+  default     = true
+}
+
+variable "dspm_redshift_access" {
+  description = "Apply permissions for Redshift cluster scanning"
+  type        = bool
+  default     = true
+}
+
 variable "vpc_cidr_block" {
   description = "VPC CIDR block"
   type        = string
