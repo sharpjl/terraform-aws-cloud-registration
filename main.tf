@@ -13,7 +13,7 @@ locals {
   # if we target by organization_id, we pick the first one because all accounts will have the same settings
   # This value does not have any indices. So I removed the [0] from the data line below
   account = try(
-    data.crowdstrike_cloud_aws_account.target.accounts,
+    data.crowdstrike_cloud_aws_account.target.accounts[0],
     {
       account_id             = ""
       external_id            = ""
