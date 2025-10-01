@@ -27,7 +27,7 @@ variable "account_id" {
   description = "The AWS 12 digit account ID"
   validation {
     condition     = length(var.account_id) == 0 || can(regex("^[0-9]{12}$", var.account_id))
-    error_message = "account_id must be either empty or the 12-digit AWS account ID"
+    error_message = "The account_id must be either empty or the 12-digit AWS account ID."
   }
 }
 
@@ -43,7 +43,7 @@ variable "account_type" {
   description = "Account type can be either 'commercial' or 'gov'"
   validation {
     condition     = var.account_type == "commercial" || var.account_type == "gov"
-    error_message = "must be either 'commercial' or 'gov'"
+    error_message = "Must be either 'commercial' or 'gov'."
   }
 }
 
