@@ -14,7 +14,7 @@ locals {
   # This value does not have any indices. So I removed the [0] from the data line below
   #account = try(
     #data.crowdstrike_cloud_aws_account.target.accounts[0],
-  account = length(data.crowdstrike_cloud_aws_account.target.accounts) > 0 ? data.crowdstrike_cloud_aws_account.target.accounts[0] :
+  account = length(data.crowdstrike_cloud_aws_account.target.accounts) > 0 ? data.crowdstrike_cloud_aws_account.target.accounts[0] : null,
     {
       account_id             = ""
       external_id            = ""
